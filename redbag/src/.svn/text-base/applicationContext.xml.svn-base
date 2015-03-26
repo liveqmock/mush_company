@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!-- 数据库管理 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="url"
+			value="jdbc:mysql://192.168.20.115:3306/redbag?useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="root"></property>
+		<property name="maxActive" value="15"></property>
+		<property name="maxIdle" value="10"></property>
+		<property name="minIdle" value="5"></property>
+		<property name="maxWait" value="3000"></property>
+		<property name="defaultAutoCommit" value="true"></property>
+		<property name="removeAbandoned" value="true" />
+		<property name="removeAbandonedTimeout" value="180" />
+		<property name="validationQuery" value="select 1"></property>
+		<property name="testOnBorrow" value="true"></property>
+	</bean>
+	<!-- 数据库sqlsessonFactory 管理器 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:MyBatis-Configuration.xml"></property>
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+
+	<bean id="apiAction" class="com.szmw.action.APIAction" scope="prototype"></bean>
+
+	<!-- 操作后台用户登录的DAO和SERVICE -->
+	<bean id="tbUserDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.szmw.dao.tbuser.TBUserDAO"></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+
+	<bean id="tbUserService" class="com.szmw.dao.tbuser.service.TBUserServiceImpl">
+		<property name="dao" ref="tbUserDAO"></property>
+	</bean>
+	
+	<bean id="tbUserAction" class="com.szmw.action.TBUserAction">
+		<property name="tbUserService" ref="tbUserService"></property>
+	</bean>
+
+	<!-- Shop DAO and Service -->
+	<bean id="tbShopDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.szmw.dao.tbshop.TBShopDAO"></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="tbShopService" class="com.szmw.dao.tbshop.service.TBShopServiceImpl">
+		<property name="dao" ref="tbShopDAO"></property>
+	</bean>
+	
+	<bean id="tbShopAction" class="com.szmw.action.TBShopAction">
+		<property name="tbUserService" ref="tbUserService"></property>
+		<property name="tbShopService" ref="tbShopService"></property>
+	</bean>
+	
+	<!-- Shop Category DAO and Service -->
+	<bean id="tbShopCategoryDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.szmw.dao.tbshopcategory.TBShopCategoryDAO"></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="tbShopCategoryService" class="com.szmw.dao.tbshopcategory.service.TBShopCategoryServiceImpl">
+		<property name="dao" ref="tbShopCategoryDAO"></property>
+	</bean>
+	<bean id="tbShopCategoryAction" class="com.szmw.action.TBShopCategoryAction">
+		<property name="tbShopCategoryService" ref="tbShopCategoryService"></property>
+	</bean>
+	
+	<!-- Shop Location DAO and Service -->
+	<bean id="tbLocationDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.szmw.dao.tblocation.TBLocationDAO"></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="tbLocationService" class="com.szmw.dao.tblocation.service.TBLocationServiceImpl">
+		<property name="dao" ref="tbLocationDAO"></property>
+	</bean>
+	<bean id="tbLocationAction" class="com.szmw.action.TBLocationAction">
+		<property name="tbLocationService" ref="tbLocationService"></property>
+	</bean>
+	
+	<!-- Shop Card DAO and Service -->
+	<bean id="tbCardDAO" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.szmw.dao.tbcard.TBCardDAO"></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+	
+	<bean id="tbCardService" class="com.szmw.dao.tbcard.service.TBCardServiceImpl">
+		<property name="dao" ref="tbCardDAO"></property>
+	</bean>
+	<bean id="tbCardAction" class="com.szmw.action.TBCardAction">
+		<property name="tbCardService" ref="tbCardService"></property>
+	</bean>
+</beans>

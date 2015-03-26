@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>    
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Mapper文件最好放在与Dao接口同一目录下 -->
+<mapper namespace="com.szmw.dao.tbcard.TBCardDAO">
+	<resultMap id="baseResultMap" type="TBCardModel">
+		<id column="id" property="id" />
+		<result column="userid" property="userid" />
+		<result column="createtime" property="createtime" />
+		<result column="color" property="color" />
+		<result column="title" property="title" />
+		<result column="description" property="description" />
+		<result column="canshare" property="canshare" />
+		<result column="canreward" property="canreward" />
+		<result column="confirmmode" property="confirmmode" />
+		<result column="stock" property="stock" />
+		<result column="permax" property="permax" />
+		<result column="starttime" property="starttime" />
+		<result column="endtime" property="endtime" />
+		<result column="consumeshopid" property="consumeshopid" />
+		<result column="instruction" property="instruction" />
+		<result column="servicemobile" property="servicemobile" />
+		<result column="consumedetail" property="consumedetail" />
+		<result column="cardtype" property="cardtype" />
+		<result column="discount" property="discount" />
+		<result column="cashcoupon" property="cashcoupon" />
+		<result column="enablequtoa" property="enablequtoa" />
+	</resultMap>
+	<sql id="where">
+		<where>
+			<if test="userid != null">
+				And userid = #{userid}
+      		</if>
+			<if test="createtime != null">
+				And createtime = #{createtime}
+      		</if>
+			<if test="color != null">
+				And color = #{color}
+      		</if>
+			<if test="title != null">
+				And title = #{title}
+      		</if>
+			<if test="description != null">
+				And description = #{description}
+      		</if>
+			<if test="canshare != null">
+				And canshare = #{canshare}
+      		</if>
+			<if test="canreward != null">
+				And canreward = #{canreward}
+      		</if>
+			<if test="confirmmode != null">
+				And confirmmode = #{confirmmode}
+      		</if>
+			<if test="stock != null">
+				And stock = #{stock}
+      		</if>
+			<if test="permax != null">
+				And permax = #{permax}
+      		</if>
+			<if test="starttime != null">
+				And starttime = #{starttime}
+      		</if>
+			<if test="endtime != null">
+				And endtime = #{endtime}
+      		</if>
+			<if test="instruction != null">
+				And instruction = #{instruction}
+      		</if>
+			<if test="servicemobile != null">
+				And servicemobile = #{servicemobile}
+      		</if>
+			<if test="consumedetail != null">
+				And consumedetail = #{consumedetail}
+      		</if>
+			<if test="cardtype != null">
+				And cardtype = #{cardtype}
+      		</if>
+			<if test="discount != null">
+				And discount = #{discount}
+      		</if>
+			<if test="cashcoupon != null">
+				And cashcoupon = #{cashcoupon}
+      		</if>
+			<if test="enablequtoa != null">
+				And enablequtoa = #{enablequtoa}
+      		</if>
+		</where>
+	</sql>
+	<sql id="column">
+		id,userid,createtime,color,title,description,canshare,canreward,confirmmode,stock,permax,starttime,endtime,consumeshopid,instruction,servicemobile,consumedetail,cardtype,discount,cashcoupon,enablequtoa
+    </sql>
+	<select id="queryTBCardModel" resultMap="com.szmw.dao.tbcard.TBCardDAO.baseResultMap"
+		parameterType="map">
+		select
+		<include refid="com.szmw.dao.tbcard.TBCardDAO.column" />
+		from tb_card
+		where id = #{id}
+	</select>
+
+	<select id="queryTBCardModelList" resultMap="com.szmw.dao.tbcard.TBCardDAO.baseResultMap"
+		parameterType="map">
+		select
+		<include refid="com.szmw.dao.tbcard.TBCardDAO.column" />
+		from tb_card
+	</select>
+
+	<select id="queryCount" resultType="Integer" parameterType="map">
+		select count(id) from tb_card
+		<if test="name != null">
+			Where Name = #{name}
+      	</if>
+	</select>
+
+
+	<select id="selectByid" resultMap="com.szmw.dao.tbcard.TBCardDAO.baseResultMap"
+		parameterType="string">
+		select
+		<include refid="com.szmw.dao.tbcard.TBCardDAO.column" />
+		from tb_card
+		where id=#{id}
+	</select>
+	<delete id="deleteTBCard" parameterType="TBCardModel">
+		delete from tb_card where id = #{id} and userid = #{userid}
+    </delete>
+	<insert id="insertTBCard" parameterType="TBCardModel">
+		insert into tb_card
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userid != null and userid != 0">
+				userid,
+	        </if>
+			<if test="createtime != null">
+				createtime,
+	        </if>
+			<if test="color != null">
+				color,
+	        </if>
+			<if test="title != null">
+				title,
+	        </if>
+			<if test="description != null">
+				description,
+	        </if>
+			<if test="canshare != null">
+				canshare,
+	        </if>
+			<if test="canreward != null">
+				canreward,
+	        </if>
+			<if test="confirmmode != null and confirmmode != 0">
+				confirmmode,
+	        </if>
+			<if test="stock != null">
+				stock,
+	        </if>
+			<if test="permax != null">
+				permax,
+	        </if>
+			<if test="starttime != null">
+				starttime,
+	        </if>
+			<if test="endtime != null">
+				endtime,
+	        </if>
+			<if test="consumeshopid != null">
+				consumeshopid,
+	        </if>
+			<if test="instruction != null">
+				instruction,
+	        </if>
+			<if test="servicemobile != null">
+				servicemobile,
+	        </if>
+			<if test="consumedetail != null">
+				consumedetail,
+	        </if>
+			<if test="cardtype != null and cardtype != 0">
+				cardtype,
+	        </if>
+			<if test="discount != null and discount != 0">
+				discount,
+	        </if>
+			<if test="cashcoupon != null and cashcoupon != 0">
+				cashcoupon,
+	        </if>
+			<if test="enablequtoa != null and enablequtoa != 0">
+				enablequtoa,
+	        </if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userid != null and userid != 0">
+				#{userid},
+	        </if>
+			<if test="createtime != null">
+				#{createtime},
+	        </if>
+			<if test="color != null">
+				#{color},
+	        </if>
+			<if test="title != null">
+				#{title},
+	        </if>
+			<if test="description != null">
+				#{description},
+	        </if>
+			<if test="canshare != null">
+				#{canshare},
+	        </if>
+			<if test="canreward != null">
+				#{canreward},
+	        </if>
+			<if test="confirmmode != null and confirmmode != 0">
+				#{confirmmode},
+	        </if>
+			<if test="stock != null">
+				#{stock},
+	        </if>
+			<if test="permax != null">
+				#{permax},
+	        </if>
+			<if test="starttime != null">
+				#{starttime},
+	        </if>
+			<if test="endtime != null">
+				#{endtime},
+	        </if>
+			<if test="consumeshopid != null">
+				#{consumeshopid},
+	        </if>
+			<if test="instruction != null">
+				#{instruction},
+	        </if>
+			<if test="servicemobile != null">
+				#{servicemobile},
+	        </if>
+			<if test="consumedetail != null">
+				#{consumedetail},
+	        </if>
+			<if test="cardtype != null and discount != 0">
+				#{cardtype},
+	        </if>
+			<if test="discount != null and discount != 0">
+				#{discount},
+	        </if>
+			<if test="cashcoupon != null and cashcoupon != 0">
+				#{cashcoupon},
+	        </if>
+			<if test="enablequtoa != null and enablequtoa != 0">
+				#{enablequtoa},
+	        </if>
+		</trim>
+	</insert>
+	<select id="selectCountDefalt" parameterType="map" resultType="java.lang.Integer">
+		select count(*) from t_test
+		<include refid="com.szmw.dao.tbcard.TBCardDAO.where" />
+	</select>
+	<update id="updateTBCard" parameterType="TBCardModel">
+		update tb_card
+		<set>
+			<if test="userid != null">
+				userid = #{userid},
+      		</if>
+			<if test="createtime != null">
+				createtime = #{createtime},
+            </if>
+			<if test="color != null">
+				color = #{color},
+      		</if>
+			<if test="title != null">
+				title = #{title},
+            </if>
+			<if test="description != null">
+				description = #{description},
+      		</if>
+			<if test="canshare != null">
+				canshare = #{canshare},
+            </if>
+			<if test="canreward != null">
+				canreward = #{canreward},
+      		</if>
+			<if test="confirmmode != null">
+				confirmmode = #{confirmmode},
+            </if>
+			<if test="stock != null">
+				stock = #{stock},
+            </if>
+			<if test="permax != null">
+				permax = #{permax},
+            </if>
+			<if test="starttime != null">
+				starttime = #{starttime},
+            </if>
+			<if test="endtime != null">
+				endtime = #{endtime},
+            </if>
+			<if test="consumeshopid != null">
+				consumeshopid = #{consumeshopid},
+            </if>
+			<if test="instruction != null">
+				instruction = #{instruction},
+            </if>
+			<if test="servicemobile != null">
+				servicemobile = #{servicemobile},
+            </if>
+			<if test="consumedetail != null">
+				consumedetail = #{consumedetail},
+            </if>
+			<if test="cardtype != null and cardtype != 0">
+				cardtype = #{cardtype},
+            </if>
+			<if test="discount != null and discount != 0">
+				discount = #{discount},
+            </if>
+			<if test="cashcoupon != null and cashcoupon != 0">
+				cashcoupon = #{cashcoupon},
+            </if>
+			<if test="enablequtoa != null and enablequtoa != 0">
+				enablequtoa = #{enablequtoa},
+            </if>
+		</set>
+		where id = #{id}
+	</update>
+
+
+	<update id="resetPassword" parameterType="TBCardModel">
+		update tb_card set password = #{password} where mobile = #{mobile} and suspended = 0
+	</update>
+	
+
+	<select id="queryUserInfo" parameterType="string" resultMap="com.szmw.dao.tbcard.TBCardDAO.baseResultMap">
+		select
+		*
+		from tb_card
+		where mobile = #{mobile} and suspended = 0
+	</select>
+</mapper>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>    
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Mapper文件最好放在与Dao接口同一目录下 -->
+<mapper namespace="com.szmw.dao.tbshopcategory.TBShopCategoryDAO">
+	<resultMap id="baseResultMap" type="TBShopCategoryModel">
+		<id column="id" property="id" />
+		<result column="parentid" property="parentid" />
+		<result column="categoryname" property="categoryname" />
+		<result column="weight" property="weight" />
+	</resultMap>
+	<sql id="where">
+		<where>
+			<if test="id != null">
+				And id = #{id}
+      		</if>
+			<if test="parentid != null">
+				And parentid = #{parentid}
+      		</if>
+			<if test="categoryname != null">
+				And categoryname = #{categoryname}
+      		</if>
+			<if test="weight != null">
+				And weight = #{weight}
+      		</if>
+		</where>
+	</sql>
+	<sql id="column">
+		id,parentid,categoryname,weight
+    </sql>
+	<select id="queryTbShopModel" resultMap="com.szmw.dao.tbshopcategory.TBShopCategoryDAO.baseResultMap"
+		parameterType="map">
+		select
+		<include refid="com.szmw.dao.tbshopcategory.TBShopCategoryDAO.column" />
+		from tb_shop_category
+		where id = #{id}
+	</select>
+
+	<select id="queryTBShopCategoryList" resultMap="com.szmw.dao.tbshopcategory.TBShopCategoryDAO.baseResultMap"
+		parameterType="map">
+		select
+		<include refid="com.szmw.dao.tbshopcategory.TBShopCategoryDAO.column" />
+		from tb_shop_category
+	</select>
+
+	<select id="queryTBShopYCategory" resultMap="com.szmw.dao.tbshopcategory.TBShopCategoryDAO.baseResultMap"
+		parameterType="map">
+		select
+		<include refid="com.szmw.dao.tbshopcategory.TBShopCategoryDAO.column" />
+		from tb_shop_category where parentid = #{parentid}
+	</select>
+
+	<select id="queryTBShopECategory" resultMap="com.szmw.dao.tbshopcategory.TBShopCategoryDAO.baseResultMap"
+		parameterType="map">
+		select
+		<include refid="com.szmw.dao.tbshopcategory.TBShopCategoryDAO.column" />
+		from tb_shop_category where parentid = #{id}
+	</select>
+
+	<select id="queryCount" resultType="Integer" parameterType="map">
+		select count(id) from tb_shop_category
+		<if test="name != null">
+			Where Name = #{name}
+      	</if>
+	</select>
+
+
+	<select id="selectByid" resultMap="com.szmw.dao.tbshopcategory.TBShopCategoryDAO.baseResultMap"
+		parameterType="string">
+		select
+		<include refid="com.szmw.dao.tbshopcategory.TBShopCategoryDAO.column" />
+		from tb_shop_category
+		where id=#{id}
+	</select>
+	<delete id="deleteTBShopCategory" parameterType="TBShopCategoryModel">
+		delete from tb_shop_category where id = #{id} and userid = #{userid}
+    </delete>
+	<insert id="insertTBShopCategory" parameterType="TBShopCategoryModel">
+		insert into tb_shop_category
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="parentid != null">
+				parentid,
+	        </if>
+			<if test="categoryname != null">
+				categoryname,
+	        </if>
+			<if test="weight != null">
+				weight,
+	        </if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="parentid != null">
+				#{parentid},
+	        </if>
+			<if test="categoryname != null">
+				#{categoryname},
+	        </if>
+			<if test="weight != null">
+				#{weight},
+	        </if>
+		</trim>
+	</insert>
+	<select id="selectCountDefalt" parameterType="map" resultType="java.lang.Integer">
+		select count(*) from t_test
+		<include refid="com.szmw.dao.tbshopcategory.TBShopCategoryDAO.where" />
+	</select>
+	<update id="updateTBShopCategory" parameterType="TBShopCategoryModel">
+		update tb_shop_category
+		<set>
+			<if test="parentid != null">
+				parentid = #{parentid},
+      		</if>
+			<if test="categoryname != null">
+				categoryname = #{categoryname},
+            </if>
+			<if test="weight != null">
+				weight = #{weight},
+      		</if>
+		</set>
+		where id = #{id}
+	</update>
+
+
+	<update id="resetPassword" parameterType="TBShopCategoryModel">
+		update tb_shop_category set password = #{password} where mobile = #{mobile} and suspended = 0
+	</update>
+	
+
+	<select id="queryTBShopCategory" parameterType="string" resultMap="com.szmw.dao.tbshopcategory.TBShopCategoryDAO.baseResultMap">
+		select
+		*
+		from tb_shop_category
+		where mobile = #{mobile} and suspended = 0
+	</select>
+</mapper>

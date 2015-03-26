@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.multipart.maxSize" value="5242880" />
+	<constant name="struts.action.extension" value="action"></constant>
+
+	<package name="struts2" namespace="/" extends="struts-default">
+	<!-- <interceptors>
+		<interceptor name="adminSession"
+			class="com.wx.interceptor.AdminRequestSessionInterceptor">
+		</interceptor>
+		<interceptor name="adminAuthority"
+			class="com.wx.interceptor.AdminRequestAuthorityInterceptor">
+		</interceptor>
+
+		<interceptor-stack name="adminStack">
+			<interceptor-ref name="adminSession"></interceptor-ref>
+			<interceptor-ref name="adminAuthority"></interceptor-ref>
+		</interceptor-stack>
+	</interceptors>
+	 -->
+	 
+		<!--  <interceptors>
+			<interceptor name="checkAuth" class="com.wx.interceptor.RequestScopeInterceptor"></interceptor>
+		</interceptors>
+		
+		<global-results>
+			<result name="redirect" type="dispatcher">
+				redirect.jsp
+			</result>
+		</global-results>
+		-->
+		
+		<!-- <action name="crawler" class="crawlerAction">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action> -->
+		
+		<!--<action name="checkUserAuth" class="wbapiAction" method="checkUserAuth">
+			<result name="redirect" type="dispatcher">
+				redirect.jsp
+			</result>
+		</action>
+		
+		<action name="wbapi" class="wbapiAction">
+			<result name="redirect" type="dispatcher">
+				redirect.jsp
+			</result>
+		</action>
+		
+		<action name="myshare"  class="wbapiAction" method="myshare">
+			<interceptor-ref name="checkAuth"></interceptor-ref>
+			<result name="mine">
+				joinA.jsp
+			</result>
+			<result name="other">
+				joinPrize.jsp
+			</result>
+		</action>
+		
+		<action name="openShareAuth" class="wbapiAction" method="openShareAuth">
+			<interceptor-ref name="checkAuth"></interceptor-ref>
+			<result name="mine">
+				joinA.jsp
+			</result>
+			<result name="other">
+				joinPrize.jsp
+			</result>
+		</action>
+		
+		<action name="collectionPrize" class="wbapiAction"  method="collectionPrize">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>-->
+		
+		
+		<!--  <action name="crawler" class="crawlerAction">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>-->
+		
+		<interceptors>
+			<interceptor name="loginInterceptor" class="com.szmw.interceptor.AdminLoginInterceptor"/>			
+			<interceptor-stack name="loginDefaultStack">      
+                <interceptor-ref name="loginInterceptor" />
+                <interceptor-ref name="defaultStack" />    
+            </interceptor-stack>
+		</interceptors>
+		
+		<default-interceptor-ref name="loginDefaultStack"></default-interceptor-ref>
+		
+		<global-results>
+			<result name="index">/jsp/login.jsp</result>
+			<result name="result">/result.jsp</result>
+			<result name="login" type="redirect">/session.jsp</result>
+			<result name="errorControl">/jsp/sysError.jsp</result>
+		</global-results>
+		
+		<!-- 用户相关 -->
+		<action name="base" class="com.szmw.action.BaseAction" method="toMode">
+			
+		</action>
+		<action name="userLogin" class="com.szmw.action.TBUserAction" method="userLogin">
+		
+		</action>
+		<action name="userRegister" class="com.szmw.action.TBUserAction" method="userRegister">
+			
+		</action>
+		<action name="updatePassword" class="com.szmw.action.TBUserAction" method="updatePassword">
+			
+		</action>
+		<!-- 商店相关 -->
+		<action name="insertTBShop" class="com.szmw.action.TBShopAction" method="insertTBShop">
+			
+		</action>
+		<action name="deleteTBShop" class="com.szmw.action.TBShopAction" method="deleteTBShop">
+			
+		</action>
+		<action name="updateTBShop" class="com.szmw.action.TBShopAction" method="updateTBShop">
+			
+		</action>
+		<action name="queryTBShop" class="com.szmw.action.TBShopAction" method="queryTBShop">
+			
+		</action>
+		<action name="queryTbShopModelList" class="com.szmw.action.TBShopAction" method="queryTbShopModelList">
+			
+		</action>
+		<!-- 商店类目相关 -->
+		<action name="insertTBShopCategory" class="com.szmw.action.TBShopCategoryAction" method="insertTBShopCategory">
+			
+		</action>
+		<action name="deleteTBShopCategory" class="com.szmw.action.TBShopCategoryAction" method="deleteTBShopCategory">
+			
+		</action>
+		<action name="updateTBShopCategory" class="com.szmw.action.TBShopCategoryAction" method="updateTBShopCategory">
+			
+		</action>
+		<action name="queryTBShopCategory" class="com.szmw.action.TBShopCategoryAction" method="queryTBShopCategory">
+			
+		</action>
+		<action name="queryTBShopCategoryList" class="com.szmw.action.TBShopCategoryAction" method="queryTBShopCategoryList">
+			
+		</action>
+		<action name="queryTBShopYCategory" class="com.szmw.action.TBShopCategoryAction" method="queryTBShopYCategory">
+			
+		</action>
+		<action name="queryTBShopECategory" class="com.szmw.action.TBShopCategoryAction" method="queryTBShopECategory">
+			
+		</action>
+		<!-- 地址相关 -->
+		<action name="queryTBLocationModeProvincelList" class="com.szmw.action.TBLocationAction" method="queryTBLocationModeProvincelList">
+			
+		</action>
+		<action name="queryTBLocationModeCityList" class="com.szmw.action.TBLocationAction" method="queryTBLocationModeCityList">
+			
+		</action>
+		<action name="queryTBLocationModelCountyList" class="com.szmw.action.TBLocationAction" method="queryTBLocationModelCountyList">
+			
+		</action>
+		<!-- 卡劵相关 -->
+		<action name="insertTBCard" class="com.szmw.action.TBCardAction" method="insertTBCard">
+			
+		</action>
+		<action name="deleteTBCard" class="com.szmw.action.TBCardAction" method="deleteTBCard">
+			
+		</action>
+		<action name="updateTBCard" class="com.szmw.action.TBCardAction" method="updateTBCard">
+			
+		</action>
+		<action name="queryTBCard" class="com.szmw.action.TBCardAction" method="queryTBCard">
+			
+		</action>
+		<action name="insertTBCard" class="com.szmw.action.TBCardAction" method="insertTBCard">
+			
+		</action>
+		<action name="insertTBCard" class="com.szmw.action.TBCardAction" method="insertTBCard">
+			
+		</action>
+	</package>
+	
+</struts>

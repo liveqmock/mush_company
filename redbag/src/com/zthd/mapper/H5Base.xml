@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>    
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Mapper文件最好放在与Dao接口同一目录下 -->
+
+<mapper namespace="com.zthd.dao.BaseDAO">
+	
+	<!-- 基础信息查询 -->
+	<select id="queryBaseInformation" resultType="BaseModel">
+		select * from H5Base b where b.id = (select max(id) from H5Base)
+	</select>
+	
+	<select id="queryAllCategory" resultMap="CategoryModels">
+		select * from H5Category c order by c.categoryweight desc
+	</select>
+	
+	<select id="queryArticleByCategoryId" parameterType="ArticleModel" resultMap="ArticleModels">
+		select * from H5Article a where a.categoryid = #{categoryid} order by a.id desc limit 20
+	</select>
+	
+	<select id="queryArticleByCategoryIdAndMaxId" parameterType="ArticleModel" resultMap="ArticleModels">
+		select * from H5Article a where a.categoryid = #{categoryid} and a.id > #{maxid} order by a.id desc
+	</select>
+	
+	<select id="queryArticleByCategoryIdAndMinId" parameterType="ArticleModel" resultMap="ArticleModels">
+		select * from H5Article a where a.categoryid = #{categoryid} and #{minid} > a.id order by a.id desc limit 20
+	</select>
+	
+	<select id="queryArticleByAuthor" parameterType="ArticleModel" resultMap="ArticleModels">
+		select * from H5Article a where a.author = #{author} order by a.id desc limit 20
+	</select>
+	
+	<select id="queryArticleByAuthorAndMaxId" parameterType="ArticleModel" resultMap="ArticleModels">
+		select * from H5Article a where a.author = #{author} and a.id > #{maxid} order by a.id desc
+	</select>
+	
+	<select id="queryArticleByAuthorAndMinId" parameterType="ArticleModel" resultMap="ArticleModels">
+		select * from H5Article a where a.author = #{author} and #{minid} > a.id order by a.id desc limit 20
+	</select>
+	
+	<select id="queryArticleByPageAndPageSize" parameterType="ArticleModel" resultMap="ArticleModels">
+		select * from H5Article a where a.categoryid = #{categoryid} order by id desc limit #{pageindex} , #{pagesize}
+	</select>
+	
+	
+	<select id="queryArticleById" parameterType="ArticleModel" resultType="ArticleModel">
+		select * from H5Article a where a.id = #{id}
+	</select>
+	
+	<select id="queryArticleTop" resultMap="ArticleTopModels">
+		select * from H5ArticleTop a order by addtime desc limit 5
+	</select>
+	
+	<!-- 后台权限管理 -->
+	<select id="checkAdminAuthority"  parameterType="AdminLoginModel" resultType="AdminLoginModel">
+		select * from h5adminuser a where a.name = #{name} limit 1
+	</select>
+	
+	
+	<!-- wx 素材采集 -->
+	<!-- 获取所有的 H5的采集用户信息 -->
+	<select id="selectAllWXOpenIds" resultMap="WXOpenidModels">
+		select * from h5wxopenids
+	</select>
+	<!-- 更新WX OPENID的时间  -->
+	<update id="updateWXOpenId" parameterType="WXOpenidModel">
+		update h5wxopenids h set h.since_id = #{since_id} where h.openid = #{openid}
+	</update>
+	<!-- 判断当前文章是否存在  -->
+	<select id="selectWXArticleByDocId" parameterType="ArticleModel" resultType="int">
+		select count(*) from H5Article h where h.docid = #{docid} and h.wxdate = #{wxdate}
+	</select>
+	
+	<insert id="addNewWXArticle" parameterType="ArticleModel">
+	INSERT INTO H5Article(categoryid,docid,title,description,url,content,thumb,favouritenumber,sellnumber,wxdate,addtime,canbuy,displaymodel,author,openid,source,hadvideo) 
+	VALUES(#{categoryid},#{docid},#{title},#{description},#{url},#{content},#{thumb},#{favouritenumber},#{sellnumber},#{wxdate},now(),#{canbuy},#{displaymodel},#{author},#{openid},#{source},#{hadVideo})
+	</insert>
+	
+	
+	<!-- 公众号搜索 -->
+	<select id="selectWXOpenIdsByQueryValue" parameterType="WXOpenidModel" resultMap="WXOpenidModels">
+		SELECT * FROM H5wxopenids h WHERE h.nickname like concat(concat('%',#{query}),'%')  or h.name like concat(concat('%',#{query}),'%')
+	</select>
+
+	<!-- 结果集合 -->
+	<resultMap type="CategoryModel" id="CategoryModels"></resultMap>
+	<resultMap type="ArticleModel" id="ArticleModels"></resultMap>
+	<resultMap type="ArticleTopModel" id="ArticleTopModels"></resultMap>
+	<resultMap type="WXOpenidModel" id="WXOpenidModels"></resultMap>
+</mapper>

@@ -1,0 +1,11 @@
+@CHARSET "UTF-8";
+
+.page_news .tool_bar {
+	margin-left: 80px;
+	margin-right: 80px;
+	text-align: center;
+}
+
+.company_sign,.col_side,.container_hd {
+	display: none
+}

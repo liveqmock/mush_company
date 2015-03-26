@@ -1,0 +1,15 @@
+@CHARSET "UTF-8";
+.set_main{ 
+	width:100%;
+}
+.set_hd {
+	line-height: 40px;
+	border-bottom:1px solid #FFF;	background-color: #FFF; 
+}
+.set_hd h2 {
+font-size: 16px;
+padding: 0 30px;
+line-height: 75px;
+font-weight: 400;
+font-style: normal;
+ }

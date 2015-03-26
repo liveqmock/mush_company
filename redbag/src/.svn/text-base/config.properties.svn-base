@@ -1,0 +1,9 @@
+client_ID =     
+client_SERCRET =
+redirect_URI =
+baseURL=https://api.weibo.com/2/
+accessTokenURL=https://api.weibo.com/oauth2/access_token
+authorizeURL=https://api.weibo.com/oauth2/authorize
+rmURL=https\://rm.api.weibo.com/2/
+tokenA=2.008llZEEwf86PCb663aaedc9HEs3kB
+wxkey=79cf83ea5128c3e52afebf9c6356176905ac11dfc840cdb758ab8c3911d187ce8d7aebe0cbc5d7a3bbc6f52d220d4891

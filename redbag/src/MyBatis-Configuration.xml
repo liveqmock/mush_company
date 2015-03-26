@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<typeAliases>
+		<typeAlias alias="TBUserModel" type="com.szmw.dao.tbuser.TBUserModel" />
+		<typeAlias alias="TBShopModel" type="com.szmw.dao.tbshop.TBShopModel"/>
+		<typeAlias alias="TBShopCategoryModel" type="com.szmw.dao.tbshopcategory.TBShopCategoryModel"/>
+		<typeAlias alias="TBLocationModel" type="com.szmw.dao.tblocation.TBLocationModel"/>
+		<typeAlias alias="TBCardModel" type="com.szmw.dao.tbcard.TBCardModel"/>
+	</typeAliases>
+
+	<mappers>
+		<mapper resource="com/szmw/dao/tbuser/TB_USER.xml" />
+		<mapper resource="com/szmw/dao/tbshop/TB_SHOP.xml" />
+		<mapper resource="com/szmw/dao/tbshopcategory/TB_SHOP_CATEGORY.xml" />
+		<mapper resource="com/szmw/dao/tblocation/TB_LOCATION.xml" />
+		<mapper resource="com/szmw/dao/tbcard/TB_CARD.xml" />
+	</mappers>
+</configuration>

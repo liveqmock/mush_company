@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/Developer/!svn/ver/3573/Private/WangBo/redbag/src
+END
+config.properties
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/Developer/!svn/ver/3559/Private/WangBo/redbag/src/config.properties
+END
+struts.xml
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/Developer/!svn/ver/3616/Private/WangBo/redbag/src/struts.xml
+END
+mybatis-config.properties
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/Developer/!svn/ver/3559/Private/WangBo/redbag/src/mybatis-config.properties
+END
+applicationContext.xml
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/Developer/!svn/ver/3616/Private/WangBo/redbag/src/applicationContext.xml
+END
+log4j.properties
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/Developer/!svn/ver/3561/Private/WangBo/redbag/src/log4j.properties
+END
+MyBatis-Configuration.xml
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/Developer/!svn/ver/3616/Private/WangBo/redbag/src/MyBatis-Configuration.xml
+END

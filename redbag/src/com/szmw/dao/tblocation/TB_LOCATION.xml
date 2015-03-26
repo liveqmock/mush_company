@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>    
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Mapper文件最好放在与Dao接口同一目录下 -->
+<mapper namespace="com.szmw.dao.tblocation.TBLocationDAO">
+	<resultMap id="baseResultMap" type="TBLocationModel">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="fullname" property="fullname" />
+		<result column="pinyin" property="pinyin" />
+		<result column="lat" property="lat" />
+		<result column="lng" property="lng" />
+	</resultMap>
+	<sql id="where">
+		<where>
+			<if test="id != null">
+				And id = #{id}
+      		</if>
+			<if test="name != null">
+				And name = #{name}
+      		</if>
+			<if test="fullname != null">
+				And fullname = #{fullname}
+      		</if>
+			<if test="pinyin != null">
+				And pinyin = #{pinyin}
+      		</if>
+			<if test="lat != null">
+				And lat = #{lat}
+      		</if>
+			<if test="lng != null">
+				And lng = #{lng}
+      		</if>
+		</where>
+	</sql>
+	<sql id="column">
+		id,name,fullname,pinyin,lat,lng
+    </sql>
+	<select id="queryTbShopModel" resultMap="com.szmw.dao.tblocation.TBLocationDAO.baseResultMap"
+		parameterType="map">
+		select
+		<include refid="com.szmw.dao.tblocation.TBLocationDAO.column" />
+		from tb_location
+		where id = #{id}
+	</select>
+
+	<select id="queryTBLocationModelList" resultMap="com.szmw.dao.tblocation.TBLocationDAO.baseResultMap"
+		parameterType="map">
+		select
+		<include refid="com.szmw.dao.tblocation.TBLocationDAO.column" />
+		from tb_location
+	</select>
+
+	<select id="queryTBLocationModeProvincelList" resultMap="com.szmw.dao.tblocation.TBLocationDAO.baseResultMap"
+		parameterType="map">
+		select
+		<include refid="com.szmw.dao.tblocation.TBLocationDAO.column" />
+		from tb_location where id LIKE '%0000'
+	</select>
+
+	<select id="queryTBLocationModelCityList" resultMap="com.szmw.dao.tblocation.TBLocationDAO.baseResultMap"
+		parameterType="map">
+		select
+		<include refid="com.szmw.dao.tblocation.TBLocationDAO.column" />
+		from tb_location where id LIKE '${id}%00' and id != '${id}0000'
+	</select>
+
+	<select id="queryTBLocationModelCountyList" resultMap="com.szmw.dao.tblocation.TBLocationDAO.baseResultMap"
+		parameterType="map">
+		select
+		<include refid="com.szmw.dao.tblocation.TBLocationDAO.column" />
+		from tb_location where id LIKE '${id}01%' and id != '${id}01%'
+	</select>
+
+	<select id="queryCount" resultType="Integer" parameterType="map">
+		select count(id) from tb_location
+		<if test="name != null">
+			Where Name = #{name}
+      	</if>
+	</select>
+
+
+	<select id="selectByid" resultMap="com.szmw.dao.tblocation.TBLocationDAO.baseResultMap"
+		parameterType="string">
+		select
+		<include refid="com.szmw.dao.tblocation.TBLocationDAO.column" />
+		from tb_location
+		where id=#{id}
+	</select>
+	<delete id="deleteTbLocation" parameterType="TBLocationModel">
+		delete from tb_location where id = #{id} and userid = #{userid}
+    </delete>
+	<insert id="insertTbLocation" parameterType="TBLocationModel">
+		insert into tb_location
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				name,
+	        </if>
+			<if test="fullname != null">
+				fullname,
+	        </if>
+			<if test="pinyin != null">
+				pinyin,
+	        </if>
+			<if test="lat != null">
+				lat,
+	        </if>
+			<if test="lng != null">
+				lng,
+	        </if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				#{name},
+	        </if>
+			<if test="fullname != null">
+				#{fullname},
+	        </if>
+			<if test="pinyin != null">
+				#{pinyin},
+	        </if>
+			<if test="lat != null">
+				#{lat},
+	        </if>
+			<if test="lng != null">
+				#{lng},
+	        </if>
+		</trim>
+	</insert>
+	<select id="selectCountDefalt" parameterType="map" resultType="java.lang.Integer">
+		select count(*) from t_test
+		<include refid="com.szmw.dao.tblocation.TBLocationDAO.where" />
+	</select>
+	<update id="updateTbLocation" parameterType="TBLocationModel">
+		update tb_location
+		<set>
+			<if test="name != null">
+				name = #{name},
+      		</if>
+			<if test="fullname != null">
+				fullname = #{fullname},
+            </if>
+			<if test="pinyin != null">
+				pinyin = #{pinyin},
+      		</if>
+			<if test="lat != null">
+				lat = #{lat},
+            </if>
+			<if test="lng != null">
+				lng = #{lng},
+      		</if>
+		</set>
+		where id = #{id}
+	</update>
+
+
+	<update id="resetPassword" parameterType="TBLocationModel">
+		update tb_location set password = #{password} where mobile = #{mobile} and suspended = 0
+	</update>
+	
+
+	<select id="queryTbLocationModel" parameterType="string" resultMap="com.szmw.dao.tblocation.TBLocationDAO.baseResultMap">
+		select
+		*
+		from tb_location
+		where mobile = #{mobile} and suspended = 0
+	</select>
+</mapper>

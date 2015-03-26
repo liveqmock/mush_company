@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" ?>    
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Mapper文件最好放在与Dao接口同一目录下 -->
+<mapper namespace="com.szmw.dao.tbuser.TBUserDAO">
+	<resultMap id="baseResultMap" type="TBUserModel">
+		<id column="id" property="id" />
+		<result column="nickname" property="nickname" />
+		<result column="Password" property="password" />
+		<result column="createtime" property="createtime" />
+		<result column="mobile" property="mobile" />
+		<result column="header" property="header" />
+		<result column="email" property="email" />
+		<result column="contact" property="contact" />
+		<result column="suspended" property="suspended" />
+	</resultMap>
+	<sql id="where">
+		<where>
+			<if test="id != null">
+				And id = #{id}
+      		</if>
+			<if test="nickname != null">
+				And nickname = #{nickname}
+      		</if>
+			<if test="password != null">
+				And password = #{password}
+      		</if>
+			<if test="createtime != null">
+				And createtime = #{createtime}
+      		</if>
+			<if test="mobile != null">
+				And mobile = #{mobile}
+      		</if>
+			<if test="header != null">
+				And header = #{header}
+      		</if>
+			<if test="email != null">
+				And email = #{email}
+      		</if>
+			<if test="contact != null">
+				And contact = #{contact}
+      		</if>
+			<if test="suspended != null">
+				And suspended = #{suspended}
+      		</if>
+		</where>
+	</sql>
+	<sql id="column">
+		id,nickname,password,createtime,mobile,header,email,suspended,suspended
+    </sql>
+	<select id="select" resultMap="com.szmw.dao.tbuser.TBUserDAO.baseResultMap"
+		parameterType="map">
+		select
+		<include refid="com.szmw.dao.tbuser.TBUserDAO.column" />
+		from tb_user
+		<include refid="com.szmw.dao.tbuser.TBUserDAO.where" />
+	</select>
+
+	<select id="selectPage" resultMap="com.szmw.dao.tbuser.TBUserDAO.baseResultMap"
+		parameterType="map">
+		select
+		<include refid="com.szmw.dao.tbuser.TBUserDAO.column" />
+		from tb_user
+		<include refid="com.szmw.dao.tbuser.TBUserDAO.where" />
+	</select>
+
+	<select id="selectCount" resultType="Integer" parameterType="map">
+		select count(id) from tb_user
+		<if test="name != null">
+			Where Name = #{name}
+      	</if>
+	</select>
+
+
+	<select id="selectByid" resultMap="com.szmw.dao.tbuser.TBUserDAO.baseResultMap"
+		parameterType="string">
+		select
+		<include refid="com.szmw.dao.tbuser.TBUserDAO.column" />
+		from tb_user
+		where id=#{id}
+	</select>
+	<delete id="delete" parameterType="java.lang.Integer">
+		delete from tb_user where id = #{id}
+    </delete>
+	<insert id="register" parameterType="TBUserModel">
+		<!--<selectKey keyProperty="id" resultType="int" order="AFTER">
+			<include refid="common.sequence" />
+		</selectKey>
+		-->
+		insert into tb_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="nickname != null">
+				nickname,
+	        </if>
+			<if test="password != null">
+				password,
+	        </if>
+			<if test="createtime != null">
+				createtime,
+	        </if>
+			<if test="mobile != null">
+				mobile,
+	        </if>
+			<if test="header != null">
+				header,
+	        </if>
+			<if test="email != null">
+				email,
+	        </if>
+			<if test="contact != null">
+				contact,
+	        </if>
+			<if test="suspended != null">
+				suspended,
+	        </if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="nickname != null">
+				#{nickname},
+	        </if>
+			<if test="password != null">
+				#{password},
+	        </if>
+			<if test="createtime != null">
+				now(),
+	        </if>
+			<if test="mobile != null">
+				#{mobile},
+	        </if>
+			<if test="header != null">
+				#{header},
+	        </if>
+			<if test="email != null">
+				#{email},
+	        </if>
+			<if test="contact != null">
+				#{contact},
+	        </if>
+			<if test="suspended != null">
+				#{suspended},
+	        </if>
+		</trim>
+	</insert>
+	<select id="selectCountDefalt" parameterType="map" resultType="java.lang.Integer">
+		select count(*) from t_test
+		<include refid="com.szmw.dao.tbuser.TBUserDAO.where" />
+	</select>
+	<update id="update" parameterType="TBUserModel">
+		update tb_user
+		<set>
+			<if test="nickname != null">
+				Name = #{nickname},
+      		</if>
+			<if test="password != null">
+				password = #{password},
+            </if>
+			<if test="createtime != null">
+				createtime = #{createtime},
+      		</if>
+			<if test="mobile != null">
+				mobile = #{mobile},
+            </if>
+			<if test="header != null">
+				header = #{header},
+      		</if>
+			<if test="email != null">
+				email = #{email},
+            </if>
+			<if test="contact != null">
+				contact = #{contact},
+      		</if>
+			<if test="suspended != null">
+				Password = #{suspended},
+            </if>
+		</set>
+		where id = #{id}
+	</update>
+
+
+	<update id="resetPassword" parameterType="TBUserModel">
+		update tb_user set password = #{password} where mobile = #{mobile} and suspended = 0
+	</update>
+	
+
+	<select id="queryUserInfo" parameterType="string" resultMap="com.szmw.dao.tbuser.TBUserDAO.baseResultMap">
+		select
+		*
+		from tb_user
+		where mobile = #{mobile} and suspended = 0
+	</select>
+</mapper>

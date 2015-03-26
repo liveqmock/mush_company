@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8" ?>    
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Mapper文件最好放在与Dao接口同一目录下 -->
+<mapper namespace="com.szmw.dao.tbshop.TBShopDAO">
+	<resultMap id="baseResultMap" type="TBShopModel">
+		<id column="id" property="id" />
+		<result column="userid" property="userid" />
+		<result column="longitude" property="longitude" />
+		<result column="latitude" property="latitude" />
+		<result column="location" property="location" />
+		<result column="summary" property="summary" />
+		<result column="recommond" property="recommond" />
+		<result column="featuredservices" property="featuredservices" />
+		<result column="mobile" property="mobile" />
+		<result column="opentime" property="opentime" />
+		<result column="closetime" property="closetime" />
+		<result column="shopname" property="shopname" />
+		<result column="priceperperson" property="priceperperson" />
+		<result column="shopcategoryid" property="shopcategoryid" />
+		<result column="shopcategoryname" property="shopcategoryname" />
+		<result column="status" property="status" />
+	</resultMap>
+	<sql id="where">
+		<where>
+			<if test="id != null and id != 0">
+				And id = #{id}
+      		</if>
+			<if test="userid != null and userid != 0">
+				And userid = #{userid}
+      		</if>
+			<if test="longitude != null and longitude != 0">
+				And longitude = #{longitude}
+      		</if>
+			<if test="latitude != null and latitude != 0">
+				And latitude = #{latitude}
+      		</if>
+			<if test="location != null">
+				And location = #{location}
+      		</if>
+			<if test="summary != null">
+				And summary = #{summary}
+      		</if>
+			<if test="recommond != null">
+				And recommond = #{recommond}
+      		</if>
+			<if test="featuredservices != null">
+				And featuredservices = #{featuredservices}
+      		</if>
+			<if test="mobile != null">
+				And mobile = #{mobile}
+      		</if>
+			<if test="opentime != null">
+				And opentime = #{opentime}
+      		</if>
+			<if test="closetime != null">
+				And closetime = #{closetime}
+      		</if>
+			<if test="shopname != null">
+				And shopname = #{shopname}
+      		</if>
+			<if test="priceperperson != null and priceperperson != 0">
+				And priceperperson = #{priceperperson}
+      		</if>
+			<if test="shopcategoryid != null and shopcategoryid != 0">
+				And shopcategoryid = #{shopcategoryid}
+      		</if>
+			<if test="shopcategoryname != null">
+				And shopcategoryname = #{shopcategoryname}
+      		</if>
+			<if test="status != null  and status != 0">
+				And status = #{status}
+      		</if>
+		</where>
+	</sql>
+	<sql id="column">
+		id,userid,longitude,latitude,location,summary,recommond,featuredservices,mobile,opentime,closetime,shopname,priceperperson,shopcategoryid,shopcategoryname,status
+    </sql>
+	<select id="queryTbShopModel" resultMap="com.szmw.dao.tbshop.TBShopDAO.baseResultMap"
+		parameterType="map">
+		select
+		<include refid="com.szmw.dao.tbshop.TBShopDAO.column" />
+		from tb_shop
+		where id = #{id}
+	</select>
+
+	<select id="queryTbShopModelList" resultMap="com.szmw.dao.tbshop.TBShopDAO.baseResultMap"
+		parameterType="map">
+		select
+		<include refid="com.szmw.dao.tbshop.TBShopDAO.column" />
+		from tb_shop
+		<include refid="com.szmw.dao.tbshop.TBShopDAO.where" />
+	</select>
+
+	<select id="queryCount" resultType="Integer" parameterType="map">
+		select count(id) from tb_shop
+		<if test="name != null">
+			Where Name = #{name}
+      	</if>
+	</select>
+
+
+	<select id="selectByid" resultMap="com.szmw.dao.tbshop.TBShopDAO.baseResultMap"
+		parameterType="string">
+		select
+		<include refid="com.szmw.dao.tbshop.TBShopDAO.column" />
+		from tb_shop
+		where id=#{id}
+	</select>
+	<delete id="deleteTbShop" parameterType="TBShopModel">
+		delete from tb_shop where id = #{id} and userid = #{userid}
+    </delete>
+	<insert id="insertTbShop" parameterType="TBShopModel">
+		insert into tb_shop
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userid != null">
+				userid,
+	        </if>
+			<if test="longitude != null">
+				longitude,
+	        </if>
+			<if test="latitude != null">
+				latitude,
+	        </if>
+			<if test="location != null">
+				location,
+	        </if>
+			<if test="summary != null">
+				summary,
+	        </if>
+			<if test="recommond != null">
+				recommond,
+	        </if>
+			<if test="featuredservices != null">
+				featuredservices,
+	        </if>
+			<if test="mobile != null">
+				mobile,
+	        </if>
+			<if test="opentime != null">
+				opentime,
+	        </if>
+			<if test="closetime != null">
+				closetime,
+	        </if>
+			<if test="shopname != null">
+				shopname,
+	        </if>
+			<if test="priceperperson != null">
+				priceperperson,
+	        </if>
+			<if test="shopcategoryid != null">
+				shopcategoryid,
+	        </if>
+			<if test="shopcategoryname != null">
+				shopcategoryname,
+	        </if>
+			<if test="status != null">
+				status,
+	        </if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userid != null">
+				#{userid},
+	        </if>
+			<if test="longitude != null">
+				#{longitude},
+	        </if>
+			<if test="latitude != null">
+				#{latitude},
+	        </if>
+			<if test="location != null">
+				#{location},
+	        </if>
+			<if test="summary != null">
+				#{summary},
+	        </if>
+			<if test="recommond != null">
+				#{recommond},
+	        </if>
+			<if test="featuredservices != null">
+				#{featuredservices},
+	        </if>
+			<if test="mobile != null">
+				#{mobile},
+	        </if>
+			<if test="opentime != null">
+				#{opentime},
+	        </if>
+			<if test="closetime != null">
+				#{closetime},
+	        </if>
+			<if test="shopname != null">
+				#{shopname},
+	        </if>
+			<if test="priceperperson != null">
+				#{priceperperson},
+	        </if>
+			<if test="shopcategoryid != null">
+				#{shopcategoryid},
+	        </if>
+			<if test="shopcategoryname != null">
+				#{shopcategoryname},
+	        </if>
+			<if test="status != null">
+				#{status},
+	        </if>
+		</trim>
+	</insert>
+	<select id="selectCountDefalt" parameterType="map" resultType="java.lang.Integer">
+		select count(*) from t_test
+		<include refid="com.szmw.dao.tbshop.TBShopDAO.where" />
+	</select>
+	<update id="updateTbShop" parameterType="TBShopModel">
+		update tb_shop
+		<set>
+			<if test="userid != null">
+				userid = #{userid},
+      		</if>
+			<if test="longitude != null">
+				longitude = #{longitude},
+            </if>
+			<if test="latitude != null">
+				latitude = #{latitude},
+      		</if>
+			<if test="location != null">
+				location = #{location},
+            </if>
+			<if test="summary != null">
+				summary = #{summary},
+      		</if>
+			<if test="recommond != null">
+				recommond = #{recommond},
+            </if>
+			<if test="featuredservices != null">
+				featuredservices = #{featuredservices},
+      		</if>
+			<if test="mobile != null">
+				mobile = #{mobile},
+            </if>
+			<if test="opentime != null">
+				opentime = #{opentime},
+            </if>
+			<if test="closetime != null">
+				closetime = #{closetime},
+            </if>
+			<if test="shopname != null">
+				shopname = #{shopname},
+            </if>
+			<if test="priceperperson != null">
+				priceperperson = #{priceperperson},
+            </if>
+			<if test="shopcategoryid != null">
+				shopcategoryid = #{shopcategoryid},
+            </if>
+			<if test="shopcategoryname != null">
+				shopcategoryname = #{shopcategoryname},
+            </if>
+			<if test="status != null">
+				status = #{status},
+            </if>
+		</set>
+		where id = #{id}
+	</update>
+
+
+	<update id="resetPassword" parameterType="TBShopModel">
+		update tb_shop set password = #{password} where mobile = #{mobile} and suspended = 0
+	</update>
+	
+
+	<select id="queryUserInfo" parameterType="string" resultMap="com.szmw.dao.tbshop.TBShopDAO.baseResultMap">
+		select
+		*
+		from tb_shop
+		where mobile = #{mobile} and suspended = 0
+	</select>
+</mapper>

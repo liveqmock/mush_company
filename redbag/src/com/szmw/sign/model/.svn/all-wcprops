@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/Developer/!svn/ver/3561/Private/WangBo/redbag/src/com/szmw/sign/model
+END
+SignModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/Developer/!svn/ver/3561/Private/WangBo/redbag/src/com/szmw/sign/model/SignModel.java
+END
+WXAccessTokenModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/Developer/!svn/ver/3561/Private/WangBo/redbag/src/com/szmw/sign/model/WXAccessTokenModel.java
+END
+WXGloblAccessTokenModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/Developer/!svn/ver/3561/Private/WangBo/redbag/src/com/szmw/sign/model/WXGloblAccessTokenModel.java
+END
+WXBaseModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/Developer/!svn/ver/3561/Private/WangBo/redbag/src/com/szmw/sign/model/WXBaseModel.java
+END
+WXJSAPITicketModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/Developer/!svn/ver/3561/Private/WangBo/redbag/src/com/szmw/sign/model/WXJSAPITicketModel.java
+END
+WXUserModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/Developer/!svn/ver/3561/Private/WangBo/redbag/src/com/szmw/sign/model/WXUserModel.java
+END
